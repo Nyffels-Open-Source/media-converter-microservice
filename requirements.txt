@@ -4,3 +4,4 @@ pdf2image
 img2pdf
 python-multipart
 Pillow
+weasyprint
