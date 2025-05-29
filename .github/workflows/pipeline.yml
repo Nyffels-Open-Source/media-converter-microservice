@@ -19,7 +19,7 @@ jobs:
 
       - name: 🏷️ Generate version
         id: version
-        uses: Nyffels-IT/github-actions-calver-version-generator@v1
+        uses: Nyffels-IT/github-actions-calver-version-generator@v1.0.1
 
       - name: 🐳 Build local test image
         run: |
