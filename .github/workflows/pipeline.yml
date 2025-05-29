@@ -27,13 +27,12 @@ jobs:
 
       - name: ✅ Test - check health
         run: |
-          docker run -d -p 8080:8000 --name converter media-converter-test
+          docker run -d -p 8000:8000 --name converter media-converter-test
           sleep 5
-          curl -f http://localhost:8080/health
+          curl -f http://localhost:8000/health
 
       - name: ✅ Test - run example conversion
         run: |
-          curl -f -X POST http://localhost:8080/health || exit 1
           # Todo add conversion tests ex: 
           # curl -F "file=@tests/test.pdf" http://localhost:8080/pdf/to-txt
 
