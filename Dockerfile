@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     libreoffice \
     libgl1 \
     poppler-utils \
+    p7zip-full \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

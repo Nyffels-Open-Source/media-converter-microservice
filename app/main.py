@@ -13,6 +13,10 @@ from app.pptx_to_pdf import convert_pptx_to_pdf
 from app.odt_to_pdf import convert_odt_to_pdf
 from app.pdf_to_txt_html_svg import convert_pdf_to_txt, convert_pdf_to_html, convert_pdf_to_svg
 from app.image_conversion import convert_image
+from app.zip_to_tar import convert_zip_to_tar
+from app.tar_to_zip import convert_tar_to_zip
+from app.zip_to_7z import convert_zip_to_7z
+from app.sevenz_to_zip import convert_7z_to_zip
 from typing import List
 import os
 
@@ -148,3 +152,28 @@ async def jpeg_to_webp(file: UploadFile = File(...)):
     """Convert JPEG to WEBP format."""
     output_path = convert_image(file, "webp")
     return FileResponse(output_path, media_type="image/webp", filename="converted.webp")
+
+
+@app.post("/zip/to-tar", tags=["Conversion"])
+async def zip_to_tar(file: UploadFile = File(...)):
+    """Convert ZIP archive to TAR format."""
+    output_path = convert_zip_to_tar(file)
+    return FileResponse(output_path, media_type="application/x-tar", filename="converted.tar")
+
+@app.post("/tar/to-zip", tags=["Conversion"])
+async def tar_to_zip(file: UploadFile = File(...)):
+    """Convert TAR archive to ZIP format."""
+    output_path = convert_tar_to_zip(file)
+    return FileResponse(output_path, media_type="application/zip", filename="converted.zip")
+
+@app.post("/zip/to-7z", tags=["Conversion"])
+async def zip_to_7z(file: UploadFile = File(...)):
+    """Convert ZIP archive to 7z format."""
+    output_path = convert_zip_to_7z(file)
+    return FileResponse(output_path, media_type="application/x-7z-compressed", filename="converted.7z")
+
+@app.post("/7z/to-zip", tags=["Conversion"])
+async def sevenz_to_zip(file: UploadFile = File(...)):
+    """Convert 7z archive to ZIP format."""
+    output_path = convert_7z_to_zip(file)
+    return FileResponse(output_path, media_type="application/zip", filename="converted.zip")
