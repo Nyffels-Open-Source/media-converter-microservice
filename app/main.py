@@ -158,7 +158,7 @@ async def tar_to_zip(file: UploadFile = File(...)):
 async def zip_to_7z(file: UploadFile = File(...)):
     return FileResponse(convert_zip_to_7z(file), media_type="application/x-7z-compressed", filename="converted.7z")
 
-@app.post("/7z/to-zip", tags=["Archive"])
+@app.post("/7z/to-zip", tags=["Archive"], operation_id="sevenZToZip")
 async def sevenz_to_zip(file: UploadFile = File(...)):
     return FileResponse(convert_7z_to_zip(file), media_type="application/zip", filename="converted.zip")
 
