@@ -43,122 +43,420 @@ def health_check():
     return {"status": "ok"}
 
 # [PDF]
-@app.post("/pdf/to-image", tags=["PDF"])
+@app.post(
+    "/pdf/to-image",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/zip": {}},
+            "description": "ZIP archive containing JPEG images",
+            "content_type": "application/zip"
+        }
+    },
+)
 async def pdf_to_image(file: UploadFile = File(...)):
     """Convert PDF to JPEG images (as ZIP)."""
     zip_path = convert_pdf_to_images(file)
     return FileResponse(zip_path, media_type="application/zip", filename="converted_images.zip")
 
-@app.post("/pdf/to-png", tags=["PDF"])
+@app.post(
+    "/pdf/to-png",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/zip": {}},
+            "description": "ZIP archive containing PNG images",
+            "content_type": "application/zip"
+        }
+    },
+)
 async def pdf_to_png(file: UploadFile = File(...)):
     """Convert PDF to PNG images (as ZIP)."""
     zip_path = convert_pdf_to_png(file)
     return FileResponse(zip_path, media_type="application/zip", filename="converted_images.zip")
 
-@app.post("/pdf/to-txt", tags=["PDF"])
+@app.post(
+    "/pdf/to-txt",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"text/plain": {}},
+            "description": "Plain text extracted from PDF",
+            "content_type": "text/plain"
+        }
+    },
+)
 async def pdf_to_txt(file: UploadFile = File(...)):
     """Convert PDF to plain text."""
     return FileResponse(convert_pdf_to_txt(file), media_type="text/plain", filename="converted.txt")
 
-@app.post("/pdf/to-html", tags=["PDF"])
+@app.post(
+    "/pdf/to-html",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"text/html": {}},
+            "description": "HTML content converted from PDF",
+            "content_type": "text/html"
+        }
+    },
+)
 async def pdf_to_html(file: UploadFile = File(...)):
     """Convert PDF to HTML."""
     return FileResponse(convert_pdf_to_html(file), media_type="text/html", filename="converted.html")
 
-@app.post("/pdf/to-svg", tags=["PDF"])
+@app.post(
+    "/pdf/to-svg",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/svg+xml": {}},
+            "description": "SVG content converted from PDF",
+            "content_type": "image/svg+xml"
+        }
+    },
+)
 async def pdf_to_svg(file: UploadFile = File(...)):
     """Convert PDF to SVG."""
     return FileResponse(convert_pdf_to_svg(file), media_type="image/svg+xml", filename="converted.svg")
 
-@app.post("/pdf/to-pdfa", tags=["PDF"])
+@app.post(
+    "/pdf/to-pdfa",
+    tags=["PDF"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF/A converted file",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def pdf_to_pdfa(file: UploadFile = File(...)):
     """Convert PDF to PDF/A using Ghostscript."""
     return FileResponse(convert_pdf_to_pdfa(file), media_type="application/pdf", filename="converted_pdfa.pdf")
 
 # [OFFICE]
-@app.post("/docx/to-pdf", tags=["Office"])
+@app.post(
+    "/docx/to-pdf",
+    tags=["Office"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from DOCX",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def docx_to_pdf(file: UploadFile = File(...)):
     return FileResponse(convert_docx_to_pdf(file), media_type="application/pdf", filename="converted.pdf")
 
-@app.post("/odt/to-pdf", tags=["Office"])
+@app.post(
+    "/odt/to-pdf",
+    tags=["Office"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from ODT",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def odt_to_pdf(file: UploadFile = File(...)):
     return FileResponse(convert_odt_to_pdf(file), media_type="application/pdf", filename="converted.pdf")
 
-@app.post("/pptx/to-pdf", tags=["Office"])
+@app.post(
+    "/pptx/to-pdf",
+    tags=["Office"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from PPTX",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def pptx_to_pdf(file: UploadFile = File(...)):
     return FileResponse(convert_pptx_to_pdf(file), media_type="application/pdf", filename="converted.pdf")
 
-@app.post("/xlsx/to-pdf", tags=["Office"])
+@app.post(
+    "/xlsx/to-pdf",
+    tags=["Office"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from XLSX",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def xlsx_to_pdf(file: UploadFile = File(...)):
     return FileResponse(convert_xlsx_to_pdf(file), media_type="application/pdf", filename="converted.pdf")
 
-@app.post("/html/to-pdf", tags=["Office"])
+@app.post(
+    "/html/to-pdf",
+    tags=["Office"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from HTML",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def html_to_pdf(file: UploadFile = File(...)):
     return FileResponse(convert_html_to_pdf(file), media_type="application/pdf", filename="converted.pdf")
 
 # [IMAGE]
-@app.post("/image/to-pdf", tags=["Image"])
+@app.post(
+    "/image/to-pdf",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/pdf": {}},
+            "description": "PDF converted from images",
+            "content_type": "application/pdf"
+        }
+    },
+)
 async def image_to_pdf(files: List[UploadFile] = File(...)):
     return FileResponse(convert_images_to_pdf(files), media_type="application/pdf", filename="converted.pdf")
 
-@app.post("/tiff/to-jpeg", tags=["Image"])
+@app.post(
+    "/tiff/to-jpeg",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/jpeg": {}},
+            "description": "JPEG converted from TIFF",
+            "content_type": "image/jpeg"
+        }
+    },
+)
 async def tiff_to_jpeg(file: UploadFile = File(...)):
     return FileResponse(convert_tiff_to_jpeg(file), media_type="image/jpeg", filename="converted.jpg")
 
-@app.post("/jpeg/to-tiff", tags=["Image"])
+@app.post(
+    "/jpeg/to-tiff",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/tiff": {}},
+            "description": "TIFF converted from JPEG",
+            "content_type": "image/tiff"
+        }
+    },
+)
 async def jpeg_to_tiff(file: UploadFile = File(...)):
     return FileResponse(convert_jpeg_to_tiff(file), media_type="image/tiff", filename="converted.tiff")
 
-@app.post("/tiff/to-png", tags=["Image"])
+@app.post(
+    "/tiff/to-png",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "PNG converted from TIFF",
+            "content_type": "image/png"
+        }
+    },
+)
 async def tiff_to_png(file: UploadFile = File(...)):
     return FileResponse(convert_tiff_to_png(file), media_type="image/png", filename="converted.png")
 
-@app.post("/png/to-tiff", tags=["Image"])
+@app.post(
+    "/png/to-tiff",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/tiff": {}},
+            "description": "TIFF converted from PNG",
+            "content_type": "image/tiff"
+        }
+    },
+)
 async def png_to_tiff(file: UploadFile = File(...)):
     return FileResponse(convert_png_to_tiff(file), media_type="image/tiff", filename="converted.tiff")
 
-@app.post("/png/to-jpeg", tags=["Image"])
+@app.post(
+    "/png/to-jpeg",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/jpeg": {}},
+            "description": "JPEG converted from PNG",
+            "content_type": "image/jpeg"
+        }
+    },
+)
 async def png_to_jpeg(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "jpeg"), media_type="image/jpeg", filename="converted.jpeg")
 
-@app.post("/jpeg/to-png", tags=["Image"])
+@app.post(
+    "/jpeg/to-png",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "PNG converted from JPEG",
+            "content_type": "image/png"
+        }
+    },
+)
 async def jpeg_to_png(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "png"), media_type="image/png", filename="converted.png")
 
-@app.post("/svg/to-png", tags=["Image"])
+@app.post(
+    "/svg/to-png",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "PNG converted from SVG",
+            "content_type": "image/png"
+        }
+    },
+)
 async def svg_to_png(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "png"), media_type="image/png", filename="converted.png")
 
-@app.post("/webp/to-png", tags=["Image"])
+@app.post(
+    "/webp/to-png",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "PNG converted from WebP",
+            "content_type": "image/png"
+        }
+    },
+)
 async def webp_to_png(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "png"), media_type="image/png", filename="converted.png")
 
-@app.post("/webp/to-jpeg", tags=["Image"])
+@app.post(
+    "/webp/to-jpeg",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/jpeg": {}},
+            "description": "JPEG converted from WebP",
+            "content_type": "image/jpeg"
+        }
+    },
+)
 async def webp_to_jpeg(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "jpeg"), media_type="image/jpeg", filename="converted.jpeg")
 
-@app.post("/png/to-webp", tags=["Image"])
+@app.post(
+    "/png/to-webp",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/webp": {}},
+            "description": "WebP converted from PNG",
+            "content_type": "image/webp"
+        }
+    },
+)
 async def png_to_webp(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "webp"), media_type="image/webp", filename="converted.webp")
 
-@app.post("/jpeg/to-webp", tags=["Image"])
+@app.post(
+    "/jpeg/to-webp",
+    tags=["Image"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"image/webp": {}},
+            "description": "WebP converted from JPEG",
+            "content_type": "image/webp"
+        }
+    },
+)
 async def jpeg_to_webp(file: UploadFile = File(...)):
     return FileResponse(convert_image(file, "webp"), media_type="image/webp", filename="converted.webp")
 
 # [ARCHIVE]
-@app.post("/zip/to-tar", tags=["Archive"])
+@app.post(
+    "/zip/to-tar",
+    tags=["Archive"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/x-tar": {}},
+            "description": "TAR archive converted from ZIP",
+            "content_type": "application/x-tar"
+        }
+    },
+)
 async def zip_to_tar(file: UploadFile = File(...)):
     return FileResponse(convert_zip_to_tar(file), media_type="application/x-tar", filename="converted.tar")
 
-@app.post("/tar/to-zip", tags=["Archive"])
+@app.post(
+    "/tar/to-zip",
+    tags=["Archive"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/zip": {}},
+            "description": "ZIP archive converted from TAR",
+            "content_type": "application/zip"
+        }
+    },
+)
 async def tar_to_zip(file: UploadFile = File(...)):
     return FileResponse(convert_tar_to_zip(file), media_type="application/zip", filename="converted.zip")
 
-@app.post("/zip/to-7z", tags=["Archive"])
+@app.post(
+    "/zip/to-7z",
+    tags=["Archive"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/x-7z-compressed": {}},
+            "description": "7z archive converted from ZIP",
+            "content_type": "application/x-7z-compressed"
+        }
+    },
+)
 async def zip_to_7z(file: UploadFile = File(...)):
     return FileResponse(convert_zip_to_7z(file), media_type="application/x-7z-compressed", filename="converted.7z")
 
-@app.post("/7z/to-zip", tags=["Archive"], operation_id="sevenZToZip")
+@app.post(
+    "/7z/to-zip",
+    tags=["Archive"],
+    operation_id="sevenZToZip",
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/zip": {}},
+            "description": "ZIP archive converted from 7z",
+            "content_type": "application/zip"
+        }
+    },
+)
 async def sevenz_to_zip(file: UploadFile = File(...)):
     return FileResponse(convert_7z_to_zip(file), media_type="application/zip", filename="converted.zip")
 
