@@ -474,12 +474,34 @@ async def file_to_base64_datastring(file: UploadFile = File(...)):
     """Convert file to base64 data URI string."""
     return await convert_file_to_base64_datastring(file)
 
-@app.post("/base64-to-file", tags=["Base64"])
+@app.post(
+    "/base64-to-file",
+    tags=["Base64"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/octet-stream": {}},
+            "description": "Binary file converted from base64",
+            "content_type": "application/octet-stream"
+        }
+    },
+)
 async def base64_to_file(input: Base64FileInput):
     """Convert base64 + metadata to downloadable file."""
     return convert_base64_to_file(input)
 
-@app.post("/base64-datastring-to-file", tags=["Base64"])
+@app.post(
+    "/base64-datastring-to-file",
+    tags=["Base64"],
+    response_class=FileResponse,
+    responses={
+        200: {
+            "content": {"application/octet-stream": {}},
+            "description": "Binary file converted from base64 data URI",
+            "content_type": "application/octet-stream"
+        }
+    },
+)
 async def base64_datastring_to_file(input: Base64DataURIInput):
     """Convert base64 data URI to downloadable file."""
     return convert_datauri_to_file(input)
