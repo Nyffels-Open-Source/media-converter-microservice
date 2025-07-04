@@ -49,7 +49,14 @@ def health_check():
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/zip": {}},
+            "content": {
+                "application/zip": {
+                    "schema": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
             "description": "ZIP archive containing JPEG images",
             "content_type": "application/zip"
         }
@@ -66,7 +73,14 @@ async def pdf_to_image(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/zip": {}},
+                        "content": {
+                            "application/zip": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        },
             "description": "ZIP archive containing PNG images",
             "content_type": "application/zip"
         }
@@ -83,7 +97,7 @@ async def pdf_to_png(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"text/plain": {}},
+            "content": {"text/plain": { "schema": {"type": "string"}}},
             "description": "Plain text extracted from PDF",
             "content_type": "text/plain"
         }
@@ -99,7 +113,7 @@ async def pdf_to_txt(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"text/html": {}},
+            "content": {"text/html": { "schema": {"type": "string"}}},
             "description": "HTML content converted from PDF",
             "content_type": "text/html"
         }
@@ -115,7 +129,7 @@ async def pdf_to_html(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/svg+xml": {}},
+            "content": {"image/svg+xml": { "schema": { "type": "string", "format": "binary" } },
             "description": "SVG content converted from PDF",
             "content_type": "image/svg+xml"
         }
@@ -131,7 +145,7 @@ async def pdf_to_svg(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF/A converted file",
             "content_type": "application/pdf"
         }
@@ -148,7 +162,7 @@ async def pdf_to_pdfa(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from DOCX",
             "content_type": "application/pdf"
         }
@@ -163,7 +177,7 @@ async def docx_to_pdf(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from ODT",
             "content_type": "application/pdf"
         }
@@ -178,7 +192,7 @@ async def odt_to_pdf(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from PPTX",
             "content_type": "application/pdf"
         }
@@ -193,7 +207,7 @@ async def pptx_to_pdf(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from XLSX",
             "content_type": "application/pdf"
         }
@@ -208,7 +222,7 @@ async def xlsx_to_pdf(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from HTML",
             "content_type": "application/pdf"
         }
@@ -224,7 +238,7 @@ async def html_to_pdf(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/pdf": {}},
+            "content": {"application/pdf": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PDF converted from images",
             "content_type": "application/pdf"
         }
@@ -239,7 +253,7 @@ async def image_to_pdf(files: List[UploadFile] = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/jpeg": {}},
+            "content": {"image/jpeg": { "schema": { "type": "string", "format": "binary" } }},
             "description": "JPEG converted from TIFF",
             "content_type": "image/jpeg"
         }
@@ -254,7 +268,7 @@ async def tiff_to_jpeg(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/tiff": {}},
+            "content": {"image/tiff": { "schema": { "type": "string", "format": "binary" } }},
             "description": "TIFF converted from JPEG",
             "content_type": "image/tiff"
         }
@@ -269,7 +283,7 @@ async def jpeg_to_tiff(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/png": {}},
+            "content": {"image/png": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PNG converted from TIFF",
             "content_type": "image/png"
         }
@@ -284,7 +298,7 @@ async def tiff_to_png(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/tiff": {}},
+            "content": {"image/tiff": { "schema": { "type": "string", "format": "binary" } }},
             "description": "TIFF converted from PNG",
             "content_type": "image/tiff"
         }
@@ -299,7 +313,7 @@ async def png_to_tiff(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/jpeg": {}},
+            "content": {"image/jpeg": { "schema": { "type": "string", "format": "binary" } }},
             "description": "JPEG converted from PNG",
             "content_type": "image/jpeg"
         }
@@ -314,7 +328,7 @@ async def png_to_jpeg(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/png": {}},
+            "content": {"image/png": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PNG converted from JPEG",
             "content_type": "image/png"
         }
@@ -329,7 +343,7 @@ async def jpeg_to_png(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/png": {}},
+            "content": {"image/png": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PNG converted from SVG",
             "content_type": "image/png"
         }
@@ -344,7 +358,7 @@ async def svg_to_png(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/png": {}},
+            "content": {"image/png": { "schema": { "type": "string", "format": "binary" } }},
             "description": "PNG converted from WebP",
             "content_type": "image/png"
         }
@@ -359,7 +373,7 @@ async def webp_to_png(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/jpeg": {}},
+            "content": {"image/jpeg": { "schema": { "type": "string", "format": "binary" } }},
             "description": "JPEG converted from WebP",
             "content_type": "image/jpeg"
         }
@@ -374,7 +388,7 @@ async def webp_to_jpeg(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/webp": {}},
+            "content": {"image/webp": { "schema": { "type": "string", "format": "binary" } }},
             "description": "WebP converted from PNG",
             "content_type": "image/webp"
         }
@@ -389,7 +403,7 @@ async def png_to_webp(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/webp": {}},
+            "content": {"image/webp": { "schema": { "type": "string", "format": "binary" } }},
             "description": "WebP converted from JPEG",
             "content_type": "image/webp"
         }
@@ -405,7 +419,7 @@ async def jpeg_to_webp(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/x-tar": {}},
+            "content": {"application/x-tar": {"schema": { "type": "string", "format": "binary" } }},
             "description": "TAR archive converted from ZIP",
             "content_type": "application/x-tar"
         }
@@ -420,7 +434,14 @@ async def zip_to_tar(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/zip": {}},
+                        "content": {
+                "application/zip": {
+                    "schema": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
             "description": "ZIP archive converted from TAR",
             "content_type": "application/zip"
         }
@@ -451,7 +472,14 @@ async def zip_to_7z(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/zip": {}},
+                        "content": {
+                "application/zip": {
+                    "schema": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
             "description": "ZIP archive converted from 7z",
             "content_type": "application/zip"
         }
@@ -480,7 +508,7 @@ async def file_to_base64_datastring(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/octet-stream": {}},
+            "content": {"application/octet-stream": { "schema": { "type": "string", "format": "binary" } }},
             "description": "Binary file converted from base64",
             "content_type": "application/octet-stream"
         }
@@ -496,7 +524,7 @@ async def base64_to_file(input: Base64FileInput):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"application/octet-stream": {}},
+            "content": {"application/octet-stream": { "schema": { "type": "string", "format": "binary" } }},
             "description": "Binary file converted from base64 data URI",
             "content_type": "application/octet-stream"
         }
