@@ -129,7 +129,11 @@ async def pdf_to_html(file: UploadFile = File(...)):
     response_class=FileResponse,
     responses={
         200: {
-            "content": {"image/svg+xml": { "schema": { "type": "string", "format": "binary" } },
+            "content": {
+                "image/svg+xml": {
+                    "schema": { "type": "string", "format": "binary" }
+                }
+            },
             "description": "SVG content converted from PDF",
             "content_type": "image/svg+xml"
         }
